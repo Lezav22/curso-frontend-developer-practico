@@ -33,3 +33,51 @@ liCarrito.addEventListener("click",function(){
 //RAPID API - ENCUENTRO CIENTOS DE APIS GRATIS https://rapidapi.com/
 //API PLATZI PRODUCTS
 //https://api.escuelajs.co/api/v1/products
+//https://jsonplaceholder.typicode.com/albums
+
+
+
+//obteniendo productos de la api de PLATZI
+const url = 'https://api.escuelajs.co/api/v1/products';
+fetch(url)
+    .then(response => response.json())
+    .then(productos => mostrarProductos(productos))
+    .catch(error => console.log(error))
+
+const mostrarProductos = (productos) =>{
+    
+
+    for(let i = 0; i < productos.length; i++) {
+        //console.log(productos[i].images[0]); 
+        const cardContainer = document.querySelector('.cards-container');
+        const productCard = document.createElement('div');
+        const productInfo = document.createElement('div');
+        const imgProduct = document.createElement('img');
+        const productPrice = document.createElement('p');
+        const productName = document.createElement('p');
+        const figure = document.createElement('figure');
+        const imgCar = document.createElement('img');
+        const divProducto = document.createElement('div');
+
+        productCard.classList.add('product-card');
+        productInfo.classList.add('product-info');
+
+        productName.innerText = productos[i].title;
+        productPrice.innerText = productos[i].price;
+        imgProduct.setAttribute('src',productos[i].images[0]);
+
+        imgCar.setAttribute('src','./icons/bt_add_to_cart.svg');
+        figure.appendChild(imgCar);
+
+        divProducto.appendChild(productName);
+        divProducto.appendChild(productPrice);
+
+        productInfo.appendChild(divProducto);
+        productInfo.appendChild(figure);
+
+        productCard.appendChild(imgProduct);
+        productCard.appendChild(productInfo);
+        cardContainer.appendChild(productCard);
+    }
+} 
+
