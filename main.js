@@ -1,7 +1,7 @@
 //ocultando y mostrando desktop-menu
 const menuDesktop = document.querySelector('.desktop-menu');
 const menuCuenta = document.querySelector('.navbar-email');
-menuCuenta.addEventListener("click", function(){
+menuCuenta.addEventListener("click", function () {
     menuDesktop.classList.toggle('inactive');
 });
 
@@ -9,7 +9,7 @@ menuCuenta.addEventListener("click", function(){
 //ocultando y mostrando Mobile-menu
 const lineMenu = document.querySelector('.menu');
 const menuMobile = document.querySelector('.mobile-menu');
-lineMenu.addEventListener("click", function (){
+lineMenu.addEventListener("click", function () {
     //inactivamos el carrito para evitar superposicion
     divCarrito.classList.add('inactive');
     //activamos el menuMobile
@@ -21,7 +21,7 @@ lineMenu.addEventListener("click", function (){
 
 const liCarrito = document.querySelector('.navbar-shopping-cart');
 const divCarrito = document.querySelector('.product-detail');
-liCarrito.addEventListener("click",function(){
+liCarrito.addEventListener("click", function () {
     //inactivamos menuMobile para evitar superposicion
     menuMobile.classList.add('inactive');
     menuDesktop.classList.add('inactive');
@@ -38,17 +38,17 @@ liCarrito.addEventListener("click",function(){
 
 
 //obteniendo productos de la api de PLATZI
-const url = 'https://api.escuelajs.co/api/v1/products';
+const url = 'https://fakestoreapi.com/products/';
 fetch(url)
     .then(response => response.json())
     .then(productos => mostrarProductos(productos))
     .catch(error => console.log(error))
 
-const mostrarProductos = (productos) =>{
-    
+const mostrarProductos = (productos) => {
 
-    for(let i = 0; i < productos.length; i++) {
-        //console.log(productos[i].images[0]); 
+
+    for (let i = 0; i < productos.length; i++) {
+
         const cardContainer = document.querySelector('.cards-container');
         const productCard = document.createElement('div');
         const productInfo = document.createElement('div');
@@ -63,10 +63,22 @@ const mostrarProductos = (productos) =>{
         productInfo.classList.add('product-info');
 
         productName.innerText = productos[i].title;
-        productPrice.innerText = productos[i].price;
-        imgProduct.setAttribute('src',productos[i].images[0]);
+        productPrice.innerText = '$ '+productos[i].price;
+        imgProduct.setAttribute('src',productos[i].image);
 
-        imgCar.setAttribute('src','./icons/bt_add_to_cart.svg');
+        // for (image of productos[i].images) {
+        //     if (!image.includes('any')) {
+        //         //console.log(image);
+        //         imgProduct.setAttribute('src', image);
+        //         break;
+
+        //     } else {
+        //         imgProduct.setAttribute('src', 'https://i.imgur.com/ZANVnHE.jpeg');
+        //         break;
+        //     }
+        // }
+
+        imgCar.setAttribute('src', './icons/bt_add_to_cart.svg');
         figure.appendChild(imgCar);
 
         divProducto.appendChild(productName);
@@ -79,5 +91,5 @@ const mostrarProductos = (productos) =>{
         productCard.appendChild(productInfo);
         cardContainer.appendChild(productCard);
     }
-} 
+}
 
