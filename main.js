@@ -20,7 +20,7 @@ lineMenu.addEventListener("click", function () {
 // mostrando y ocultando carrito de compras
 
 const liCarrito = document.querySelector('.navbar-shopping-cart');
-const divCarrito = document.querySelector('.product-detail');
+const divCarrito = document.querySelector('#productCarrito');
 liCarrito.addEventListener("click", function () {
     //inactivamos menuMobile para evitar superposicion
     menuMobile.classList.add('inactive');
@@ -34,6 +34,7 @@ liCarrito.addEventListener("click", function () {
 //API PLATZI PRODUCTS
 //https://api.escuelajs.co/api/v1/products
 //https://jsonplaceholder.typicode.com/albums
+//https://fakestoreapi.com/products/
 
 
 
@@ -45,10 +46,7 @@ fetch(url)
     .catch(error => console.log(error))
 
 const mostrarProductos = (productos) => {
-
-
     for (let i = 0; i < productos.length; i++) {
-
         const cardContainer = document.querySelector('.cards-container');
         const productCard = document.createElement('div');
         const productInfo = document.createElement('div');
@@ -78,6 +76,14 @@ const mostrarProductos = (productos) => {
         //     }
         // }
 
+        //probando
+        const modalProduct = document.querySelector('.modal');
+        imgProduct.addEventListener("click", function () {
+            console.log('PROBANDO');
+            modalProduct.classList.toggle('inactive');
+        });
+        //
+
         imgCar.setAttribute('src', './icons/bt_add_to_cart.svg');
         figure.appendChild(imgCar);
 
@@ -92,4 +98,10 @@ const mostrarProductos = (productos) => {
         cardContainer.appendChild(productCard);
     }
 }
+
+//PRODUCT DETAIL
+
+// const productCardS = document.querySelector('.product-card');
+// const modalProduct = document.querySelector('.modal');
+
 
