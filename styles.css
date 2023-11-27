@@ -190,6 +190,8 @@ nav {
     position: absolute;
     background: var(--white);
     top: 60px;
+    left: 0;
+    width: 100%;
 }
 
 .mobile-menu a {
@@ -376,6 +378,8 @@ nav {
     padding-bottom: 24px;
     position: absolute;
     right: 0;
+    background-color: var(--white);
+    border-radius: 5px;
   }
   #productDetail .product-detail-close {
     background: var(--white);
@@ -435,4 +439,5 @@ nav {
     align-items: center;
     justify-content: center;
   }
-  
+
+ 

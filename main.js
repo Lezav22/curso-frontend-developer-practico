@@ -3,6 +3,8 @@ const menuDesktop = document.querySelector('.desktop-menu');
 const menuCuenta = document.querySelector('.navbar-email');
 menuCuenta.addEventListener("click", function () {
     menuDesktop.classList.toggle('inactive');
+    cerrarProductDetail();
+    cerrarCarrito();
 });
 
 
@@ -21,13 +23,20 @@ lineMenu.addEventListener("click", function () {
 
 const liCarrito = document.querySelector('.navbar-shopping-cart');
 const divCarrito = document.querySelector('#productCarrito');
-liCarrito.addEventListener("click", function () {
+liCarrito.addEventListener("click", abrirCarrito);
+
+function cerrarCarrito(){
+    //Desactivamos el carrito
+    divCarrito.classList.add('inactive');
+}
+function abrirCarrito(){
     //inactivamos menuMobile para evitar superposicion
     menuMobile.classList.add('inactive');
     menuDesktop.classList.add('inactive');
     //Activamos el carrito
     divCarrito.classList.toggle('inactive');
-});
+    cerrarProductDetail();
+}
 
 
 //RAPID API - ENCUENTRO CIENTOS DE APIS GRATIS https://rapidapi.com/
@@ -63,30 +72,16 @@ const mostrarProductos = (productos) => {
         productName.innerText = productos[i].title;
         productPrice.innerText = '$ '+productos[i].price;
         imgProduct.setAttribute('src',productos[i].image);
-
-        // for (image of productos[i].images) {
-        //     if (!image.includes('any')) {
-        //         //console.log(image);
-        //         imgProduct.setAttribute('src', image);
-        //         break;
-
-        //     } else {
-        //         imgProduct.setAttribute('src', 'https://i.imgur.com/ZANVnHE.jpeg');
-        //         break;
-        //     }
-        // }
-
-        //probando
-        const modalProduct = document.querySelector('.modal');
-        imgProduct.addEventListener("click", function () {
-            console.log('PROBANDO');
-            modalProduct.classList.toggle('inactive');
-        });
-        //
+        
+        //PROBANDO
+        const productDetail = document.querySelector('.modal');
+        productCard.addEventListener('click', abrirProductDetail);
+        //END
 
         imgCar.setAttribute('src', './icons/bt_add_to_cart.svg');
         figure.appendChild(imgCar);
 
+        
         divProducto.appendChild(productName);
         divProducto.appendChild(productPrice);
 
@@ -101,7 +96,38 @@ const mostrarProductos = (productos) => {
 
 //PRODUCT DETAIL
 
-// const productCardS = document.querySelector('.product-card');
-// const modalProduct = document.querySelector('.modal');
+const productDetailClose = document.querySelector('.product-detail-close');
+productDetailClose.addEventListener("click", cerrarProductDetail);
+
+function cerrarProductDetail(){
+    const modalProduct = document.querySelector('.modal');
+    modalProduct.classList.add('inactive');
+}
 
 
+function abrirProductDetail(){
+    const modalProduct = document.querySelector('.modal');
+    modalProduct.classList.remove('inactive');
+}
+
+// //FUNCION PARA CONSULTAR PRODUCTOS DESDE LA API REST
+// let imgProduct = document.querySelector('.imagen');
+
+
+function consultaProductos(precio){
+    console.log(precio);
+    // fetch(url+id)
+    // .then(response => response.json())
+    // .then(productos => mostrarProductos(productos))
+    // .catch(error => console.log(error))
+}
+
+
+
+//FUNCIONA PARA AÑADIR APERTURA A PRODUCT DETAIL
+// const productDetail = document.querySelector('.modal');
+// productCard.addEventListener("click", function(){
+//     console.log(5);
+//     productDetail.classList.toggle('inactive');
+// });
+//END
