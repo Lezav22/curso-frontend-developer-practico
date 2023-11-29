@@ -65,6 +65,7 @@ const mostrarProductos = (productos) => {
         const figure = document.createElement('figure');
         const imgCar = document.createElement('img');
         const divProducto = document.createElement('div');
+        const divImagen = document.createElement('div');
 
         productCard.classList.add('product-card');
         productInfo.classList.add('product-info');
@@ -72,10 +73,10 @@ const mostrarProductos = (productos) => {
         productName.innerText = productos[i].title;
         productPrice.innerText = '$ '+productos[i].price;
         imgProduct.setAttribute('src',productos[i].image);
+        divImagen.setAttribute('data-product-id',productos[i].id);
         
         //PROBANDO
-        const productDetail = document.querySelector('.modal');
-        productCard.addEventListener('click', abrirProductDetail);
+        divImagen.addEventListener('click', abrirProductDetail);
         //END
 
         imgCar.setAttribute('src', './icons/bt_add_to_cart.svg');
@@ -87,15 +88,14 @@ const mostrarProductos = (productos) => {
 
         productInfo.appendChild(divProducto);
         productInfo.appendChild(figure);
-
-        productCard.appendChild(imgProduct);
+        divImagen.appendChild(imgProduct);
+        productCard.appendChild(divImagen);
         productCard.appendChild(productInfo);
         cardContainer.appendChild(productCard);
     }
 }
 
 //PRODUCT DETAIL
-
 const productDetailClose = document.querySelector('.product-detail-close');
 productDetailClose.addEventListener("click", cerrarProductDetail);
 
@@ -107,27 +107,20 @@ function cerrarProductDetail(){
 
 function abrirProductDetail(){
     const modalProduct = document.querySelector('.modal');
-    modalProduct.classList.remove('inactive');
+    const imgModal = document.querySelector('#imgProduct');
+    
+    const productId = this.getAttribute('data-product-id');
+    //consulta a api
+    const url = 'https://fakestoreapi.com/products/';
+    fetch(url+productId)
+        .then(response => response.json())
+        .then(producto => imprimeProduct(producto))
+        .catch(error => console.log(error))
+
+    const imprimeProduct = (producto) =>{
+        imgModal.setAttribute('src',producto.image);
+        modalProduct.classList.remove('inactive');
+    }
+    
+
 }
-
-// //FUNCION PARA CONSULTAR PRODUCTOS DESDE LA API REST
-// let imgProduct = document.querySelector('.imagen');
-
-
-function consultaProductos(precio){
-    console.log(precio);
-    // fetch(url+id)
-    // .then(response => response.json())
-    // .then(productos => mostrarProductos(productos))
-    // .catch(error => console.log(error))
-}
-
-
-
-//FUNCIONA PARA AÑADIR APERTURA A PRODUCT DETAIL
-// const productDetail = document.querySelector('.modal');
-// productCard.addEventListener("click", function(){
-//     console.log(5);
-//     productDetail.classList.toggle('inactive');
-// });
-//END

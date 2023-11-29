@@ -229,6 +229,7 @@ nav {
 
 /* ASIDE CARRITO DE COMPRAS  Y PRODUCT DETAIL*/
 
+
 #productCarrito {
     background-color: var(--white);
     width: 360px;
@@ -376,7 +377,7 @@ nav {
 #productDetail {
     width: 360px;
     padding-bottom: 24px;
-    position: absolute;
+    position: fixed;
     right: 0;
     background-color: var(--white);
     border-radius: 5px;
